@@ -1,0 +1,23 @@
+
+
+server:
+  port: 8182
+
+spring:
+  application:
+    name: dubbo-api
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+dubbo:
+
+  registry:
+    address: nacos://127.0.0.1:8848 #注册地址
+  application:
+    name: dubbo-api #应用名
+  consumer:
+    timeout: 30000 #超时时间
+service:
+  version: 1.0.0

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/dubbo-nacos/dubbo-api/dubbo-api.iml" filepath="$PROJECT_DIR$/dubbo-nacos/dubbo-api/dubbo-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dubbo-nacos/dubbo-consumer/dubbo-consumer.iml" filepath="$PROJECT_DIR$/dubbo-nacos/dubbo-consumer/dubbo-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dubbo-nacos/dubbo-api/dubbo-nacos.iml" filepath="$PROJECT_DIR$/dubbo-nacos/dubbo-api/dubbo-nacos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dubbo-nacos/dubbo-provider/dubbo-provider.iml" filepath="$PROJECT_DIR$/dubbo-nacos/dubbo-provider/dubbo-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dubbo-nacos/dubbo-seata/dubbo-seata.iml" filepath="$PROJECT_DIR$/dubbo-nacos/dubbo-seata/dubbo-seata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-cloud-alibaba.iml" filepath="$PROJECT_DIR$/spring-cloud-alibaba.iml" />
+    </modules>
+  </component>
+</project>

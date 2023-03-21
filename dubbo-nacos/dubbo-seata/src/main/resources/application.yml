@@ -1,0 +1,90 @@
+
+server:
+  port: 8182
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: zdx@281535
+  application:
+    name: dubbo-seata
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+      datasource:
+        flow:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: SENTINEL_GROUP
+            # 规则类型，取值见：
+            # org.springframework.cloud.alibaba.sentinel.datasource.RuleType
+            rule-type: flow
+        degrade:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+        system:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-system-rules
+            groupId: SENTINEL_GROUP
+            rule-type: system
+        authority:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-authority-rules
+            groupId: SENTINEL_GROUP
+            rule-type: authority
+        param-flow:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-param-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: param-flow
+    nacos:
+      discovery:
+        namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848 #注册地址
+    parameters[namespace]: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+
+  application:
+    name: dubbo-seata #应用名
+  scan:
+    base-packages: ah.zdx.impl #扫包范围
+  provider:
+    timeout: 30000 #超时时间
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+      dataId: seataServer.properties
+      namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group : SEATA_GROUP
+      username: nacos
+      password: nacos
+      namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+  enabled: true
+  tx-service-group: my_test_tx_group
+  enable-auto-data-source-proxy: true
+  service:
+    grouplist:
+      default: 127.0.0.1:8091
+    vgroupMapping:
+      my_test_tx_group: default

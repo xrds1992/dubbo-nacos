@@ -1,0 +1,120 @@
+
+server:
+  port: 8180
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:123456@127.0.0.1:27017/admin
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: zdx@281535
+  application:
+    name: dubbo-provider
+  cloud:
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+      datasource:
+        flow:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: SENTINEL_GROUP
+            # 规则类型，取值见：
+            # org.springframework.cloud.alibaba.sentinel.datasource.RuleType
+            rule-type: flow
+        degrade:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+        system:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-system-rules
+            groupId: SENTINEL_GROUP
+            rule-type: system
+        authority:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-authority-rules
+            groupId: SENTINEL_GROUP
+            rule-type: authority
+        param-flow:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-param-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: param-flow
+    nacos:
+      discovery:
+        namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848 #注册地址
+    parameters[namespace]: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+  application:
+    name: dubbo-provider #应用名
+  protocol:
+    name: dubbo #dubbo协议
+    port: 20881 #协议端口
+  scan:
+    base-packages: ah.zdx.impl #扫包范围
+  provider:
+    timeout: 30000 #超时时间
+
+service:
+  version: 1.0.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+      username: nacos
+      password: nacos
+      dataId: seataServer.properties
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group : SEATA_GROUP
+      namespace: 8c6bdd04-51c0-4557-9f6b-1a41f57a3115
+      username: nacos
+      password: nacos
+  enabled: true
+  tx-service-group: my_test_tx_group
+  enable-auto-data-source-proxy: true
+  service:
+    grouplist:
+      default: 127.0.0.1:8091
+    vgroupMapping:
+      my_test_tx_group: default
+rocketmq:
+  #nameservice服务器地址（多个以英文逗号隔开）
+  name-server: 192.168.30.100:9876
+  #生产者配置
+  producer:
+    #组名
+    group: anran-producer-group
+    #目的地（topic:tag）
+    #topic
+    topic: anran-topic
+    #sync tag(同步消息tag)
+    sync-tag: anran-sync-tags
+    #async tag(异步消息tag)
+    async-tag: anran-async-tags
+    #oneway tag(单向消息tag)
+    oneway-tag: anran-oneway-tags
